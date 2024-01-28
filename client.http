@@ -1,0 +1,46 @@
+@baseURL = http://localhost:3333
+@authToken = {{Authenticate.response.body.tokens.accessToken}}
+@authRefreshToken = {{Authenticate.response.body.tokens.refreshToken}}
+
+###
+
+# @name CreateUser
+POST {{baseURL}}/auth/register
+Content-Type: application/json
+
+{
+  "name": "Ericson Scodeler",
+  "email": "ericson4@teste.com.br",
+  "password": "1234"
+}
+
+###
+
+# @name Authenticate
+POST {{baseURL}}/auth/login
+Content-Type: application/json
+
+{
+  "useremail": "ericson4@teste.com.br",
+  "password": "1234"
+}
+
+###
+
+# @name RefreshAuthenticateToken
+POST {{baseURL}}/auth/refresh
+Content-Type: application/json
+Authorization: Refresh {{authRefreshToken}}
+
+{
+  "useremail": "ericson4@teste.com.br",
+  "password": "1234"
+}
+
+
+###
+
+# @name GetUserById
+GET  {{baseURL}}/user/1
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
